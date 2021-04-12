@@ -8,20 +8,20 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 
-public class NVstrAPI extends WebDriverSettings {
+public class NvstrAPI extends WebDriverSettings {
 
 
 
 
     @Test(priority = 1)
-    public void POST_SignIn() throws UnirestException {
+    public void TC07() throws UnirestException {
         HttpResponse<JsonNode> response = Unirest.post("https://www.nvstr.com/api/v1/auth/sign_in")
                 .header("Content_Type", Content_Type)
                 .header("Accept", Accept)
                 .field("email", username)
                 .field("password",pass)
                 .asJson();
-        System.out.println(response.getStatus());
+        System.out.println("Status: " + response.getStatus());
         System.out.println(response.getBody());
         System.out.println(response.getHeaders());
 
@@ -31,18 +31,18 @@ public class NVstrAPI extends WebDriverSettings {
     }
 
     @Test(priority = 2)
-    public void GET_AAPL() throws UnirestException {
+    public void TC08() throws UnirestException {
         HttpResponse<JsonNode> response = Unirest.get("https://www.nvstr.com/api/v1/securities?symbols=TSLA,AAPL")
                 .header("Content_Type", Content_Type)
                 .header("Accept", Accept)
                 .asJson();
-        System.out.println(response.getStatus());
+        System.out.println("Status: " + response.getStatus());
         System.out.println(response.getBody());
         Assert.assertEquals(200,response.getStatus());
         System.out.println("GetAAPL: Pass");
     }
     @Test(priority = 3)
-    public void POST_PlaceOrder() throws UnirestException {
+    public void TC09() throws UnirestException {
         HttpResponse<JsonNode> response = Unirest.post("https://www.nvstr.com/api/v1/order/place")
                 .header("Content_Type", Content_Type)
                 .header("Accept", Accept)
@@ -63,13 +63,13 @@ public class NVstrAPI extends WebDriverSettings {
                         "\"override_warnings\":[\"market_closed\"]\n" +
                         "}")
                 .asJson();
-        System.out.println(response.getStatus());
+        System.out.println("Status: " + response.getStatus());
         System.out.println(response.getBody());
         Assert.assertEquals(200,response.getStatus());
         System.out.println("GetOrders: Pass");
     }
-    @Test(priority = 1)
-    public void GET_GetOrders() throws UnirestException {
+    @Test(priority = 4)
+    public void TC10() throws UnirestException {
         HttpResponse<JsonNode> response = Unirest.get("https://www.nvstr.com/api/v1/orders")
                 .header("Content_Type", Content_Type)
                 .header("Accept", Accept)
@@ -78,7 +78,7 @@ public class NVstrAPI extends WebDriverSettings {
                 .header("client",client)//Need to update
                 .header("expiry",expiry)//Need to update
                 .asJson();
-        System.out.println(response.getStatus());
+        System.out.println("Status: " + response.getStatus());
         System.out.println(response.getBody());
         Assert.assertEquals(200,response.getStatus());
         System.out.println("GetOrders: Pass");

@@ -35,7 +35,11 @@ public class WebDriverSettings {
         } catch (IOException ignore) {}
 
         if (!remoteWebDriver) {
+            WebDriverManager.firefoxdriver().setup();
             WebDriverManager.chromedriver().setup();
+            WebDriverManager.edgedriver().setup();
+            WebDriverManager.operadriver().setup();
+
         }
     }
 

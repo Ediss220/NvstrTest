@@ -10,8 +10,16 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import java.util.concurrent.TimeUnit;
 
-public class TestSuit extends WebDriverSettings{
-    WebDriver driver = new ChromeDriver();
+public class NvstrUI extends WebDriverSettings{
+    //Select Web-browser for test(just comment and uncomment what do you need)
+      WebDriver driver = new ChromeDriver();
+    //WebDriver driver = new FirefoxDriver();
+    //WebDriver driver = new SafariDriver();
+    //WebDriver driver = new EdgeDriver();
+    //WebDriver driver = new OperaDriver();
+
+
+
 
     @BeforeTest
     public void Browser() {
@@ -40,7 +48,7 @@ public class TestSuit extends WebDriverSettings{
         driver.quit();
     }
     @Test (priority=1)
-    public void StockSearch() {
+    public void TC01 () {
 
         //Open Trade page and find the stocks
         driver.findElement(By.xpath("//span[contains(text(),'TRADE')]")).click();
@@ -49,10 +57,10 @@ public class TestSuit extends WebDriverSettings{
         //Data Validation
         WebElement DropDownMenuTSLA = driver.findElement(By.id("security-2634"));
         Assert.assertEquals(DropDownMenuTSLA.getText(), "TSLA Tesla Inc.");
-        System.out.println("StockSearch: Pass");
+        System.out.println("TC01: Pass");
     }
-    @Test(priority=2,dependsOnMethods = "StockSearch")
-    public void SelectStock() {
+    @Test(priority=2,dependsOnMethods = "TC01")
+    public void TC02() {
 
         //Select and open stock from dropdown menu
         driver.findElement(By.id("security-2634")).click();
@@ -61,10 +69,10 @@ public class TestSuit extends WebDriverSettings{
         WebElement TSLA = driver.findElement(By.className("stock-symbol"));
         Assert.assertEquals(TSLA.getText(), "TSLA");
         driver.findElement(By.xpath("//div[contains(@class,'new-order-cancel-x no-shadow')]")).click();
-        System.out.println("SelectStock: Pass");
+        System.out.println("TC02: Pass");
    }
    @Test(priority=3)
-   public void BuyStock() throws InterruptedException {
+   public void TC03() throws InterruptedException {
 
       //Open Stock
       driver.findElement(By.xpath("//span[contains(text(),'TRADE')]")).click();
@@ -77,7 +85,7 @@ public class TestSuit extends WebDriverSettings{
       //Add number of shares
       driver.findElement(By.name("shares")).sendKeys("10");
 
-      //Put "Buy" Button
+      //Click "Place Order" Button
       driver.findElement(By.xpath("//input[contains(@value,'Place Order')]")).click();
        Thread.sleep(1000);
 
@@ -87,11 +95,11 @@ public class TestSuit extends WebDriverSettings{
       driver.findElement(By.xpath("//button[normalize-space()='Continue']")).click();
       driver.findElement(By.xpath("//button[normalize-space()='Done']")).click();
        Thread.sleep(2000);
-      System.out.println("BuyStock: Pass");
+      System.out.println("TC03: Pass");
    }
 
    @Test(priority=4)
-    public void SellStock() throws InterruptedException {
+    public void TC04() throws InterruptedException {
 
        //Open Stock
        driver.findElement(By.xpath("//span[contains(text(),'TRADE')]")).click();
@@ -116,11 +124,11 @@ public class TestSuit extends WebDriverSettings{
        //Windows closing
        driver.findElement(By.xpath("//button[normalize-space()='Continue']")).click();
        driver.findElement(By.xpath("//button[normalize-space()='Done']")).click();
-       System.out.println("SellStock: Pass");
+       System.out.println("TC04: Pass");
 
    }
    @Test(priority=5)
-    public void ErrorEmptyShares() throws InterruptedException {
+    public void TC05() throws InterruptedException {
 
        //Open Stock
        driver.findElement(By.xpath("//span[contains(text(),'TRADE')]")).click();
@@ -142,10 +150,10 @@ public class TestSuit extends WebDriverSettings{
 
        //Windows closing
        driver.findElement(By.xpath("//div[contains(@class,'new-order-cancel-x no-shadow')]")).click();
-       System.out.println("ErrorEmptyShares: Pass");
+       System.out.println("TC05: Pass");
    }
    @Test(priority=6)
-    public void ErrorBuySellSelection() throws InterruptedException {
+    public void TC06() throws InterruptedException {
 
        //Open Stock
        driver.findElement(By.xpath("//span[contains(text(),'TRADE')]")).click();
@@ -164,7 +172,7 @@ public class TestSuit extends WebDriverSettings{
        Assert.assertEquals(SharesError.getText(), "Required Field");
        WebElement BuyError = driver.findElement(By.className("text-block"));
        Assert.assertEquals(BuyError.getText(), "Please fill out all required fields.");
-       System.out.println("ErrorBuySellSelection: Pass");
+       System.out.println("TC06: Pass");
    }
 
 }
