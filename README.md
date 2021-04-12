@@ -24,9 +24,7 @@ NvstrUI - testing UI
 NvstrAPI - testing API 
 
 To start UI test cases:
-
 1.Select file NvstrUI
-
 2.On the 13th lines click on the double green arrow and select RUN, or right-click on the corresponding file and select RUN.
 
 To start API test cases:
