@@ -3,19 +3,29 @@ NVSTR Project
 Hi,
 
 This archive contains: 
+
 Test cases: Nvstr Test Cases.pdf or Nvstr Test Cases.xlsx
+
 Postman file: Nvstr.postman_collection.json
 
 Before running the tests, you must install the software using this link https://www.jetbrains.com/idea/download/ 
+
 You must select the type of operating system and install the product version on the local Community computer.
-After successful installation of IDEA, you need to open the NvstrTest project (https://github.com/Ediss220/NvstrTest.git)specifying the path to the location of this folder on the local computer.
+
+After successful installation of IDEA, you need to open the NvstrTest project (https://github.com/Ediss220/NvstrTest.git)specifying the path to the location of this folder on 
+
+the local computer.
+
 All dependencies are written and imported in the project; installation of additional components is not required.
 
 All test cases described in the TC file - Nvstr Test Cases.pdf or Nvstr Test Cases.xlsx are automated. The NvstrTest provides examples of several test cases.
 
 There are three files in the main project directory: 
+
 WebDriverSettings - Data and Setting for Test 
+
 NvstrUI - testing UI 
+
 NvstrAPI - testing API 
 
 To start UI test cases:
