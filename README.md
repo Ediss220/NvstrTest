@@ -30,7 +30,6 @@ To start API test cases:
 5. On the 10th lines click on the double green arrow and select RUN, or right-click on the corresponding file and select RUN.
 
 Tests are performed automatically. The result of the test execution is displayed in the console.
-
 I Added Video with tests execution and results 
 
 If you have any questions please let me know
