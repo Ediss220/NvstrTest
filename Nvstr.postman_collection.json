@@ -1,0 +1,352 @@
+{
+	"info": {
+		"_postman_id": "7476b91c-a6cb-44fa-9b2a-e4ce0e6a2477",
+		"name": "Nvstr",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "SingIn",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+							"});\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    pm.response.to.have.body('{\"success\":true}');\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "{{email}}",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "{{pass}}",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://www.nvstr.com/api/v1/auth/sign_in",
+					"protocol": "https",
+					"host": [
+						"www",
+						"nvstr",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"sign_in"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TSLA,AAPL",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"});\r",
+							"pm.test(\"Content-Type is present\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://www.nvstr.com/api/v1/securities?symbols=TSLA,AAPL",
+					"protocol": "https",
+					"host": [
+						"www",
+						"nvstr",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"securities"
+					],
+					"query": [
+						{
+							"key": "symbols",
+							"value": "TSLA,AAPL"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Place order",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "uid",
+						"value": "{{email}}",
+						"type": "text"
+					},
+					{
+						"key": "access-token",
+						"value": "{{access-token}}",
+						"type": "text"
+					},
+					{
+						"key": "client",
+						"value": "{{client}}",
+						"type": "text"
+					},
+					{
+						"key": "expiry",
+						"value": "{{expiry}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"order\":{\r\n\"operation\":\"buy\",\r\n\"type\":\"market\",\r\n\"shares\":10,\r\n\"security_id\":286,\r\n\"limit_price\":null,\r\n\"stop_price\":null,\r\n\"Is_from_optimizer\":false\r\n},\r\n\"override_warnings\":[\"market_closed\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://www.nvstr.com/api/v1/order/place",
+					"protocol": "https",
+					"host": [
+						"www",
+						"nvstr",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"order",
+						"place"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Orders",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Content-Type is present\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Uid",
+						"value": "{{email}}",
+						"type": "text"
+					},
+					{
+						"key": "access-token",
+						"value": "{{access-token}}",
+						"type": "text"
+					},
+					{
+						"key": "client",
+						"value": "{{client}}",
+						"type": "text"
+					},
+					{
+						"key": "expiry",
+						"value": "1933691427",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://www.nvstr.com/api/v1/orders",
+					"protocol": "https",
+					"host": [
+						"www",
+						"nvstr",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"orders"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "user",
+			"value": "email"
+		},
+		{
+			"key": "pass",
+			"value": "pass"
+		},
+		{
+			"key": "email",
+			"value": "uid"
+		},
+		{
+			"key": "access-token",
+			"value": "token"
+		},
+		{
+			"key": "client",
+			"value": "client"
+		},
+		{
+			"key": "expiry",
+			"value": "exp"
+		}
+	]
+}

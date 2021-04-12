@@ -13,9 +13,9 @@ public class WebDriverSettings {
     String Content_Type = "application/json";
     String Accept = "application/json";
     String uid = "autoqa.devops@gmail.com";
-    String accesstoken = "y8_6LXSNS0BUNJ23Jk-fog";
-    String client = "XWOO-c1bA6twlc9rozVVJg";
-    String expiry = "1933719368";
+    String accesstoken = "Bhbwp1jwGq92Or19KmFg-Q";
+    String client = "7K3zAf5cP-GTyG8uA1Dbiw";
+    String expiry = "1933736694";
 
 
     public WebDriver driver;

@@ -18,9 +18,6 @@ public class NvstrUI extends WebDriverSettings{
     //WebDriver driver = new EdgeDriver();
     //WebDriver driver = new OperaDriver();
 
-
-
-
     @BeforeTest
     public void Browser() {
         driver.manage().deleteAllCookies();
