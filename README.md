@@ -1,6 +1,6 @@
 # NvstrTest
 NVSTR Project
-Hi Hayden,
+Hi,
 
 This archive contains: 
 Test cases: Nvstr Test Cases.pdf or Nvstr Test Cases.xlsx
@@ -35,6 +35,3 @@ I Added Video with tests execution and results
 If you have any questions please let me know
 
 Thank you.
-
-Best Regards
-Edward
