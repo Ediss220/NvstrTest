@@ -1,10 +1,7 @@
 package com.nvstr;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.After;
-import org.junit.Before;
 import org.openqa.selenium.WebDriver;
-
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -16,9 +13,9 @@ public class WebDriverSettings {
     String Content_Type = "application/json";
     String Accept = "application/json";
     String uid = "autoqa.devops@gmail.com";
-    String accesstoken = "uU6W4qm3w531GRCDzSBDOg";
-    String client = "h7n36IK5LmzJ4Irt3gA1nw";
-    String expiry = "1933714860";
+    String accesstoken = "y8_6LXSNS0BUNJ23Jk-fog";
+    String client = "XWOO-c1bA6twlc9rozVVJg";
+    String expiry = "1933719368";
 
 
     public WebDriver driver;

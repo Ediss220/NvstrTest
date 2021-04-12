@@ -14,55 +14,64 @@ public class TestSuit extends WebDriverSettings{
     WebDriver driver = new ChromeDriver();
 
     @BeforeTest
-            public void Browser() {
+    public void Browser() {
         driver.manage().deleteAllCookies();
         driver.get("https://www.nvstr.com/");
         driver.manage().window().maximize();
-    }
-    @AfterTest
-    public void close(){
-        driver.close();
-        driver.quit();
-    }
-
-    @Test
-    public void SignIn() {
 
         //LoginButton
         driver.findElement(By.xpath("//span[normalize-space()='Log In']")).click();
 
-        //User/Password entering and login
+        //Add Credentials
         driver.findElement(By.id("header_sign_in_email-login-field")).sendKeys(username);
         driver.findElement(By.id("header_sign_in_password-login-field")).sendKeys(pass);
         driver.findElement(By.name("commit")).click();
         driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
         driver.findElement(By.className("modal-dismiss")).click();
-        System.out.println("SignIn: Pass");
 
+        //Data Validation
+        WebElement PortfolioValue = driver.findElement(By.xpath("//div[normalize-space()='Portfolio Value']"));
+        Assert.assertEquals(PortfolioValue.getText(), "Portfolio Value");
+        System.out.println("Successfully Login");
+        }
+    @AfterTest
+    public void close(){
+        driver.close();
+        driver.quit();
     }
-
-    @Test
+    @Test (priority=1)
     public void StockSearch() {
 
         //Open Trade page and find the stocks
         driver.findElement(By.xpath("//span[contains(text(),'TRADE')]")).click();
         driver.findElement(By.id("add-order-security-search")).sendKeys("T");
+
+        //Data Validation
+        WebElement DropDownMenuTSLA = driver.findElement(By.id("security-2634"));
+        Assert.assertEquals(DropDownMenuTSLA.getText(), "TSLA Tesla Inc.");
         System.out.println("StockSearch: Pass");
     }
-
-    @Test(dependsOnMethods = "StockSearch")
+    @Test(priority=2,dependsOnMethods = "StockSearch")
     public void SelectStock() {
 
         //Select and open stock from dropdown menu
-        WebElement Tesla = driver.findElement(By.id("security-2634"));
-        Tesla.click();
+        driver.findElement(By.id("security-2634")).click();
+
+        //Data Validation
+        WebElement TSLA = driver.findElement(By.className("stock-symbol"));
+        Assert.assertEquals(TSLA.getText(), "TSLA");
+        driver.findElement(By.xpath("//div[contains(@class,'new-order-cancel-x no-shadow')]")).click();
         System.out.println("SelectStock: Pass");
    }
-
-   @Test(dependsOnMethods = "SelectStock")
+   @Test(priority=3)
    public void BuyStock() throws InterruptedException {
 
-      //Buy or Sell selection
+      //Open Stock
+      driver.findElement(By.xpath("//span[contains(text(),'TRADE')]")).click();
+      driver.findElement(By.id("add-order-security-search")).sendKeys("T");
+      driver.findElement(By.id("security-2634")).click();
+
+      //Select "Buy" Button
       driver.findElement(By.xpath("//div[contains(@class,'toggle-left')]")).click();
 
       //Add number of shares
@@ -72,16 +81,20 @@ public class TestSuit extends WebDriverSettings{
       driver.findElement(By.xpath("//input[contains(@value,'Place Order')]")).click();
        Thread.sleep(1000);
 
-       //Order Confirmation
-      WebElement Paymentcomplete = driver.findElement(By.className("payment-complete-message"));
-      Assert.assertEquals(Paymentcomplete.getText(), "Orders placed");
+      //Data Validation
+      WebElement OrderConfirmation = driver.findElement(By.className("payment-complete-message"));
+      Assert.assertEquals(OrderConfirmation.getText(), "Orders placed");
       driver.findElement(By.xpath("//button[normalize-space()='Continue']")).click();
       driver.findElement(By.xpath("//button[normalize-space()='Done']")).click();
+       Thread.sleep(2000);
       System.out.println("BuyStock: Pass");
    }
 
-   @Test(dependsOnMethods = "BuyStock")
+   @Test(priority=4)
     public void SellStock() throws InterruptedException {
+
+       //Open Stock
+       driver.findElement(By.xpath("//span[contains(text(),'TRADE')]")).click();
        driver.findElement(By.id("add-order-security-search")).sendKeys("T");
        driver.findElement(By.id("security-2634")).click();
 
@@ -93,19 +106,24 @@ public class TestSuit extends WebDriverSettings{
 
        //Click "Place Order" Button
        driver.findElement(By.xpath("//input[contains(@value,'Place Order')]")).click();
-       driver.manage().timeouts().implicitlyWait(7, TimeUnit.SECONDS);
+       driver.manage().timeouts().implicitlyWait(9, TimeUnit.SECONDS);
+       Thread.sleep(2000);
 
-       //Order Confirmation
-       Thread.sleep(1000);
+       //Data Validation
        WebElement Paymentcomplete = driver.findElement(By.className("payment-complete-message"));
        Assert.assertEquals(Paymentcomplete.getText(), "Orders placed");
+
+       //Windows closing
        driver.findElement(By.xpath("//button[normalize-space()='Continue']")).click();
        driver.findElement(By.xpath("//button[normalize-space()='Done']")).click();
        System.out.println("SellStock: Pass");
 
    }
-   @Test(dependsOnMethods = "SellStock")
+   @Test(priority=5)
     public void ErrorEmptyShares() throws InterruptedException {
+
+       //Open Stock
+       driver.findElement(By.xpath("//span[contains(text(),'TRADE')]")).click();
        driver.findElement(By.id("add-order-security-search")).sendKeys("T");
        driver.findElement(By.id("security-2634")).click();
 
@@ -114,19 +132,23 @@ public class TestSuit extends WebDriverSettings{
 
        //Click "Place Order" Button
        driver.findElement(By.xpath("//input[contains(@value,'Place Order')]")).click();
-
-       //driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
        Thread.sleep(1000);
+
+       //Data Validation
        WebElement SharesError = driver.findElement(By.xpath("//fieldset[contains(@class,'')]//p[contains(@class,'text-field-error-message')][normalize-space()='Required Field']"));
        Assert.assertEquals(SharesError.getText(), "Required Field");
        WebElement BuyError = driver.findElement(By.className("text-block"));
        Assert.assertEquals(BuyError.getText(), "Please fill out all required fields.");
 
+       //Windows closing
        driver.findElement(By.xpath("//div[contains(@class,'new-order-cancel-x no-shadow')]")).click();
        System.out.println("ErrorEmptyShares: Pass");
    }
-   @Test(dependsOnMethods = "ErrorEmptyShares")
+   @Test(priority=6)
     public void ErrorBuySellSelection() throws InterruptedException {
+
+       //Open Stock
+       driver.findElement(By.xpath("//span[contains(text(),'TRADE')]")).click();
        driver.findElement(By.id("add-order-security-search")).sendKeys("T");
        driver.findElement(By.id("security-2634")).click();
 
@@ -137,14 +159,12 @@ public class TestSuit extends WebDriverSettings{
        driver.findElement(By.xpath("//input[contains(@value,'Place Order')]")).click();
        Thread.sleep(1000);
 
-       //Validate Buy/Sell error
+       //Data Validation
        WebElement SharesError = driver.findElement(By.xpath("//p[normalize-space()='Required Field']"));
        Assert.assertEquals(SharesError.getText(), "Required Field");
        WebElement BuyError = driver.findElement(By.className("text-block"));
        Assert.assertEquals(BuyError.getText(), "Please fill out all required fields.");
        System.out.println("ErrorBuySellSelection: Pass");
    }
-
-
 
 }
