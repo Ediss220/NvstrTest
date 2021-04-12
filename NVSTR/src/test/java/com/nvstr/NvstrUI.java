@@ -76,7 +76,7 @@ public class NvstrUI extends WebDriverSettings{
       driver.findElement(By.id("add-order-security-search")).sendKeys("T");
       driver.findElement(By.id("security-2634")).click();
 
-      //Select "Buy" Button
+      //Select "Buy" option
       driver.findElement(By.xpath("//div[contains(@class,'toggle-left')]")).click();
 
       //Add number of shares
@@ -103,7 +103,7 @@ public class NvstrUI extends WebDriverSettings{
        driver.findElement(By.id("add-order-security-search")).sendKeys("T");
        driver.findElement(By.id("security-2634")).click();
 
-       //Select "Sell" Button
+       //Select "Sell" option
        driver.findElement(By.xpath("//div[contains(@class,'toggle-right')]")).click();
 
        //Add number of shares
@@ -132,7 +132,7 @@ public class NvstrUI extends WebDriverSettings{
        driver.findElement(By.id("add-order-security-search")).sendKeys("T");
        driver.findElement(By.id("security-2634")).click();
 
-       //Select "Sell" Button
+       //Select "Sell" option
        driver.findElement(By.xpath("//div[contains(@class,'toggle-right')]")).click();
 
        //Click "Place Order" Button
